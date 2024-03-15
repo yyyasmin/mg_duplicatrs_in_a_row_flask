@@ -74,9 +74,6 @@ def db_DropEverything(app, db):
 		db.drop_all()
 		db.create_all()
 print("2222222222222222222222222222")
-
-		
-		#db.session.commit()  Check if changes are actually made even without this cmd	
 		
 db_DropEverything(app, db)
 

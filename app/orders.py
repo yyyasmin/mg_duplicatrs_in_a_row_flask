@@ -3,10 +3,15 @@ from app import app, db
 from app.models import User, Order
 
 # Modify your Flask route or view function to handle user input and save it to the database
-@app.route('/submit_order', methods=['POST'])
+@app.route('/submit_order', methods=['GET', 'POST'])
 def submit_order():
+
+    print("")
+    print("ÏN submit_order")
+    
     # Assuming you receive data in JSON format
     data = request.get_json()
+    print("data: ", data)
 
     # Extract user details from the request
     email = data.get('email')
