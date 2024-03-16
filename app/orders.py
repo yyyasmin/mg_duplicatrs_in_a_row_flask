@@ -1,14 +1,21 @@
-from flask import request
-from app import app, db
-from app.models import User, Order
+from flask import request, jsonify
+from . import db  # Import db from the package (__init__.py)
+from .models import User, Order
 
-# Modify your Flask route or view function to handle user input and save it to the database
-@app.route('/submit_order', methods=['GET', 'POST'])
-def submit_order():
-
-    print("")
-    print("ÏN submit_order")
+from flask import Blueprint
+ord = Blueprint(
+    'ord', __name__,
+    template_folder='templates'
+)
+ 
+@ord.route('/', methods=['GET', 'POST'])
+@ord.route('/index', methods=['GET', 'POST'])
+def index():
+    return(" \n IN index")
     
+    
+@ord.route('/submit_order', methods=['POST'])
+def submit_order():
     # Assuming you receive data in JSON format
     data = request.get_json()
     print("data: ", data)
@@ -27,12 +34,13 @@ def submit_order():
 
     # Extract order details from the request
     subject = data.get('subject')
-    age_group = data.get('age_group')
-    skill_level = data.get('skill_level')
+    age_group = data.get('ageGroup')  # Adjust the key to match frontend data
+    skill_level = data.get('skillLevel')  # Adjust the key to match frontend data
 
     # Create a new order associated with the user
     order = Order(subject=subject, age_group=age_group, skill_level=skill_level, user=user)
     db.session.add(order)
     db.session.commit()
-
-    return 'Order submitted successfully!'
+        
+    response_data = {'message': 'Order submitted successfully!'}
+    return jsonify(response_data)

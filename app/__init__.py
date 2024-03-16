@@ -12,8 +12,13 @@ def create_app(config_class=Config):
     app = Flask(__name__)        
     app.config.from_object(config_class)        
     db.init_app(app)
-    CORS().init_app(app, resources={r"/submit_order": {"origins": "http://localhost:3000/"}})
-	
+    
+    CORS(app)
+    print("\n - ÏN create_app -- app: ", app)
+    
+    from app.orders import ord
+    app.register_blueprint(ord)
+
     return app
 
 from app import models
