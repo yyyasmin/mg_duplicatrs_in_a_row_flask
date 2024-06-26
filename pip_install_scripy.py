@@ -10,7 +10,9 @@ pip install psycopg2;
 pip install gunicorn;
 pip install psycopg2-binary;
 pip install requests;
+pip install flask_cors;
 
 set FLASK_ENV=development
 set FLASK_DEBUG=1
+set FLASK_APP=run.py
 

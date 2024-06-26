@@ -14,6 +14,9 @@ from app.models import  *
 app = create_app() 
 SQLALCHEMY_DATABASE_URI = app.config.get('SQLALCHEMY_DATABASE_URI')
 
+print("")
+print("IN DB_CREATE -- SQLALCHEMY_DATABASE_URI: ", SQLALCHEMY_DATABASE_URI)
+
 from sqlalchemy import *
 from sqlalchemy.schema import *
 from sqlalchemy.engine import reflection
