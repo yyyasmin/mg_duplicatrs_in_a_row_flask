@@ -2,6 +2,8 @@
 import os
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 from config import Config
 from flask_cors import CORS
 
@@ -12,6 +14,8 @@ def create_app(config_class=Config):
     app = Flask(__name__)        
     app.config.from_object(config_class)        
     db.init_app(app)
+    migrate = Migrate(app, db)
+
     
     #CORS(app)
     CORS(app, origins="*")
@@ -19,8 +23,9 @@ def create_app(config_class=Config):
     print("\n - ÏN create_app -- app: ", app)
     
     from app.orders import ord
-    app.register_blueprint(ord)
-    
+    #app.register_blueprint(ord)
+    app.register_blueprint(ord, url_prefix='/orders')
+
     from app.auth import auth
     app.register_blueprint(auth, url_prefix='/auth')
 

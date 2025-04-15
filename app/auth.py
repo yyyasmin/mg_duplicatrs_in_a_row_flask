@@ -24,8 +24,6 @@ def register():
     name = data.get('name')
     password = data.get('password')
     
-    sstt()
-
     if not email or not name or not password:
         return jsonify({'error': 'Missing required fields'}), 400
         

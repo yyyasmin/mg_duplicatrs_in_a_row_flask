@@ -11,6 +11,8 @@ pip install gunicorn;
 pip install psycopg2-binary;
 pip install requests;
 pip install flask_cors;
+pip install pprintpp;
+pip install flask_migrate;
 
 set FLASK_ENV=development
 set FLASK_DEBUG=1
