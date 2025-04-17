@@ -92,7 +92,11 @@ def signup():
     password = data.get('password')
     #super_user_code = data.get('super_user_code')
     super_user_code = data.get('superUserCode')
-            
+        
+    ### REMOVE ON REAL REGISTER!!! #################
+    super_user_code = 'wearethechampions'
+    ### REMOVE ON REAL REGISTER!!! #################
+
     if super_user_code == 'wearethechampions':
         if email and name and password:
             if User.query.filter_by(email=email).first():
