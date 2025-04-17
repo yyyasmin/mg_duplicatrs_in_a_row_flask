@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app import db
 from app.models import User
 from pdb import set_trace as sstt
+from pprint import pprint
 
 auth = Blueprint('auth', __name__)
 
@@ -52,11 +53,14 @@ def login():
         return jsonify({'error': 'Missing email'}), 400
 
     user = User.query.filter_by(email=email).first()
-
-    if not user:
+    if not user or not user.check_password(password):  # Add password verification here
         return jsonify({'error': 'Invalid email or password'}), 400
 
-    return jsonify({'message': 'Logged in successfully', 'user': user.id}), 200
+    return jsonify({
+        'message': 'Logged in successfully',
+        'token': 'some_token_value',
+        'userName': user.name
+    }), 200
 
 
 @auth.route('/check_email', methods=['POST'])
@@ -81,13 +85,14 @@ def check_email():
 def signup():
     print("")
     print("IN signup")
-        
+   
     data = request.get_json()
     email = data.get('email')
-    name = data.get('name')
+    name = data.get('username')
     password = data.get('password')
-    super_user_code = data.get('super_user_code')
-
+    #super_user_code = data.get('super_user_code')
+    super_user_code = data.get('superUserCode')
+            
     if super_user_code == 'wearethechampions':
         if email and name and password:
             if User.query.filter_by(email=email).first():
@@ -95,8 +100,12 @@ def signup():
 
             user = User(email=email, name=name)
             user.set_password(password)
+            
+            print("\n NEW USER: ")
+            pprint(user)
+            print("")
+
             db.session.add(user)
-            sstt()
             db.session.commit()
 
             return jsonify({'message': 'User signed up successfully'}), 201

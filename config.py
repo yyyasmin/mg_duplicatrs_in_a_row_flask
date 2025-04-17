@@ -7,7 +7,7 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', '').replace('postgres://', 'postgresql://') or \
-        'postgresql://postgres:postgres@localhost:5432/mg_landingpage'
+        'postgresql://postgres:postgres@localhost:5432/mg_auth'
 
     print("")
     print("IN CONFIG -- SQLALCHEMY_DATABASE_URI: ", SQLALCHEMY_DATABASE_URI)

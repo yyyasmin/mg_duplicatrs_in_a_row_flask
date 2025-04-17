@@ -7,4 +7,6 @@ import os
 app = create_app()
            
 if __name__ == "__main__":
-	app.run(debug=True, port=os.getenv("PORT", default=5000))
+    flask_port = os.getenv("PORT", default=8000)
+    print("flask_port: ", flask_port)
+    app.run(debug=True, port=flask_port)
