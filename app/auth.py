@@ -90,9 +90,8 @@ def signup():
     email = data.get('email')
     name = data.get('username')
     password = data.get('password')
-    #super_user_code = data.get('super_user_code')
-    super_user_code = data.get('superUserCode')
-        
+    
+    #super_user_code = data.get('superUserCode')        
     ### REMOVE ON REAL REGISTER!!! #################
     super_user_code = 'wearethechampions'
     ### REMOVE ON REAL REGISTER!!! #################
