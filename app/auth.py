@@ -3,6 +3,7 @@ from app import db
 from app.models import User
 from pdb import set_trace as sstt
 from pprint import pprint
+from flask import jsonify
 
 auth = Blueprint('auth', __name__)
 
@@ -55,12 +56,13 @@ def login():
     user = User.query.filter_by(email=email).first()
     if not user or not user.check_password(password):  # Add password verification here
         return jsonify({'error': 'Invalid email or password'}), 400
-
-    return jsonify({
+    resObj = jsonify({
         'message': 'Logged in successfully',
         'token': 'some_token_value',
         'userName': user.name
     }), 200
+    print("\nflask server login -- resObj: \n", resObj)
+    return resObj
 
 
 @auth.route('/check_email', methods=['POST'])
